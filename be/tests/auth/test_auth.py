@@ -27,7 +27,8 @@ class TestRegister:
         response = client.post('/api/auth/register', json={
             'email': 'test@example.com',  # Already exists
             'username': 'anotheruser',
-            'password': 'Test123!'
+            'password': 'Test123!',
+            'full_name': 'Another User'
         })
         
         assert response.status_code == 409
@@ -37,7 +38,8 @@ class TestRegister:
         response = client.post('/api/auth/register', json={
             'email': 'invalid-email',
             'username': 'testuser',
-            'password': 'Test123!'
+            'password': 'Test123!',
+            'full_name': 'Test User'
         })
         
         assert response.status_code == 422
