@@ -39,6 +39,33 @@ def update_me():
     return success_response(data=user.to_dict(), message="Profile updated successfully")
 
 
+@jwt_required_custom
+def upload_avatar():
+    if 'avatar' not in request.files:
+        return error_response(message="No file part", status_code=400)
+    
+    file = request.files['avatar']
+    
+    if file.filename == '':
+        return error_response(message="No selected file", status_code=400)
+    
+    from app.lib.cloudinary import upload_image
+    
+    # Upload to cloudinary
+    upload_result = upload_image(
+        file, 
+        folder="avatars",
+        public_id=f"user_{request.current_user.id}"
+    )
+    
+    if not upload_result:
+        return error_response(message="Failed to upload image", status_code=500)
+    
+    user = UserService.upload_avatar(request.current_user, upload_result['url'])
+    
+    return success_response(data=user.to_dict(), message="Avatar uploaded successfully")
+
+
 @admin_required
 def get_users():
     try:

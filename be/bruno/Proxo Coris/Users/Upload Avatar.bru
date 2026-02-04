@@ -1,0 +1,19 @@
+meta {
+  name: Upload Avatar
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{base_url}}/users/me/avatar
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{user_access_token}}
+}
+
+body:multipart-form {
+  avatar: @file(/Users/z./Downloads/itachi.jpg)
+}

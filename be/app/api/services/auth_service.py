@@ -14,7 +14,7 @@ from app.utils.exceptions import BadRequestError, UnauthorizedError, NotFoundErr
 class AuthService:
     
     @staticmethod
-    def register(email, username, password, full_name=None):
+    def register(email, username, password, full_name):
         # Check if email exists
         if db.session.query(User).filter_by(email=email.lower()).first():
             raise ConflictError("Email already registered")
@@ -50,6 +50,9 @@ class AuthService:
         
         if not user.is_active:
             raise UnauthorizedError("Account is deactivated")
+
+        if not user.is_verified:
+            raise UnauthorizedError("Account is not verified")
         
         # Update last login
         user.last_login_at = datetime.now(timezone.utc)

@@ -1,0 +1,25 @@
+meta {
+  name: Login Admin
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "admin@example.com",
+    "password": "Admin123!"
+  }
+}
+
+script:post-response {
+  if (res.status === 200) {
+    bru.setVar("admin_access_token", res.body.data.access_token);
+    bru.setVar("admin_refresh_token", res.body.data.refresh_token);
+  }
+}

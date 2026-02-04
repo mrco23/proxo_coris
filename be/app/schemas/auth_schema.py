@@ -10,7 +10,7 @@ class RegisterSchema(Schema):
         validate.Regexp(r'^[a-zA-Z0-9_]+$')
     ])
     password = fields.String(required=True, validate=validate.Length(min=8), load_only=True)
-    full_name = fields.String(validate=validate.Length(max=100))
+    full_name = fields.String(required=True, validate=validate.Length(max=100))
     
 
 

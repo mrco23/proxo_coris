@@ -15,6 +15,11 @@ def update_me():
     return user_controller.update_me()
 
 
+@user_bp.route('/me/avatar', methods=['POST'])
+def upload_avatar():
+    return user_controller.upload_avatar()
+
+
 @user_bp.route('', methods=['GET'])
 def get_users():
     return user_controller.get_users()

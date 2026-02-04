@@ -1,0 +1,20 @@
+meta {
+  name: Register
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/auth/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "22013023@gmail.com",
+    "username": "isshooo3",
+    "password": "Fitzgerald251203",
+    "full_name": "Algy Ngenget"
+  }
+}

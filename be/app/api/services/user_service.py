@@ -97,6 +97,12 @@ class UserService:
         db.session.commit()
     
     @staticmethod
+    def upload_avatar(user, file_url):
+        user.avatar_url = file_url
+        db.session.commit()
+        return user
+
+    @staticmethod
     def deactivate(user_id):
         user = db.session.get(User, user_id)
         if not user:

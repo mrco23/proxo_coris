@@ -19,7 +19,7 @@ class User(db.Model):
     email = db.Column(db.String(255), unique=True, nullable=False, index=True)
     username = db.Column(db.String(50), unique=True, nullable=False, index=True)
     password_hash = db.Column(db.String(255), nullable=False)
-    full_name = db.Column(db.String(100))
+    full_name = db.Column(db.String(100), nullable=False)
     avatar_url = db.Column(db.String(500))
     role = db.Column(Enum(UserRole), default=UserRole.USER, nullable=False)
     is_verified = db.Column(db.Boolean, default=False, nullable=False)

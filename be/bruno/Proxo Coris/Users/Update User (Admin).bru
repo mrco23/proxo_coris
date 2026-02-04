@@ -1,0 +1,22 @@
+meta {
+  name: Update User (Admin)
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{base_url}}/users/{{user_id}}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{admin_access_token}}
+}
+
+body:json {
+  {
+    "role": "user",
+    "is_active": true
+  }
+}
