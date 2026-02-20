@@ -1,93 +1,107 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { authAPI } from "../services/api/axios";
-import {
-	getToken,
-	setToken,
-	removeToken,
-	getUser,
-	setUser,
-	removeUser,
-	clearAuth,
-} from "../utils/helpers";
+import { getToken, setToken, setUser, clearAuth } from "../utils/helpers";
 
 const AuthContext = createContext(null);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
-	const context = useContext(AuthContext);
-	if (!context) {
-		throw new Error("useAuth must be used within an AuthProvider");
-	}
-	return context;
+  const context = useContext(AuthContext);
+  if (!context) throw new Error("useAuth must be used within an AuthProvider");
+  return context;
 };
 
 export const AuthProvider = ({ children }) => {
-	const [user, setUserState] = useState(null);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
+  const [user, setUserState] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-	// Check auth on mount
-	useEffect(() => {
-		const initAuth = async () => {
-			const token = getToken();
-			const savedUser = getUser();
+  useEffect(() => {
+    const initAuth = async () => {
+      const token = getToken();
+      if (token) {
+        try {
+          const res = await authAPI.getMe();
+          setUserState(res.data.data);
+          setUser(res.data.data);
+        } catch {
+          clearAuth();
+          setUserState(null);
+        }
+      }
+      setLoading(false);
+    };
+    initAuth();
+  }, []);
 
-			if (token && savedUser) {
-				try {
-					const response = await authAPI.getMe();
-					setUserState(response.data.user);
-					setUser(response.data.user);
-				} catch (err) {
-					console.error("Auth init error:", err);
-					clearAuth();
-					setUserState(null);
-				}
-			}
-			setLoading(false);
-		};
+  const saveSession = (token, userData) => {
+    setToken(token);
+    setUser(userData);
+    setUserState(userData);
+  };
 
-		initAuth();
-	}, []);
+  const refreshUser = async () => {
+    try {
+      const res = await authAPI.getMe();
+      setUserState(res.data.data);
+      setUser(res.data.data);
+      return res.data.data;
+    } catch {
+      return null;
+    }
+  };
 
-	const login = async (email, password) => {
-		try {
-			setError(null);
-			const response = await authAPI.login({ email, password });
-			const { token, user } = response.data;
+  const login = async (email, password) => {
+    try {
+      const res = await authAPI.login({ email, password });
+      const { access_token, user } = res.data.data;
+      saveSession(access_token, user);
+      return { success: true, user };
+    } catch (err) {
+      return {
+        success: false,
+        message: err.response?.data?.message || "Login gagal",
+      };
+    }
+  };
 
-			setToken(token);
-			setUser(user);
-			setUserState(user);
+  const register = async (formData) => {
+    try {
+      await authAPI.register(formData);
+      return { success: true };
+    } catch (err) {
+      return {
+        success: false,
+        message: err.response?.data?.message || "Registrasi gagal",
+      };
+    }
+  };
 
-			return { success: true };
-		} catch (err) {
-			const message = err.response?.data?.message || "Login gagal";
-			setError(message);
-			return { success: false, message };
-		}
-	};
+  const logout = async () => {
+    // try {
+    //   await authAPI.logout();
+    // } catch {
+    //   // ignore error
+    // }
+    clearAuth();
+    setUserState(null);
+  };
 
-	const logout = async () => {
-		try {
-			await authAPI.logout();
-		} catch (err) {
-			console.error("Logout error:", err);
-		} finally {
-			clearAuth();
-			setUserState(null);
-		}
-	};
-
-	const value = {
-		user,
-		loading,
-		error,
-		isAuthenticated: !!user,
-		login,
-		logout,
-		clearError: () => setError(null),
-	};
-
-	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        isAuthenticated: !!user,
+        saveSession,
+        refreshUser,
+        login,
+        register,
+        logout,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthContext;

@@ -1,8 +1,8 @@
-import React from "react";
-import UserProfile from './../Users/UserProfile';
+import UserProfile from "../Users/UserProfile";
 
+// Admin pakai halaman profile yang sama dengan user
 function AdminProfile() {
-	return <div>admin UserProfile</div>;
+  return <UserProfile />;
 }
 
 export default AdminProfile;

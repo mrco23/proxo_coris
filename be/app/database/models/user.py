@@ -18,11 +18,16 @@ class User(db.Model):
     id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     email = db.Column(db.String(255), unique=True, nullable=False, index=True)
     username = db.Column(db.String(50), unique=True, nullable=False, index=True)
-    password_hash = db.Column(db.String(255), nullable=False)
-    full_name = db.Column(db.String(100), nullable=False)
+    password_hash = db.Column(db.String(255), nullable=True)   # nullable=True untuk Google user
+    full_name = db.Column(db.String(100), nullable=True)        # nullable=True
     avatar_url = db.Column(db.String(500))
     role = db.Column(Enum(UserRole), default=UserRole.USER, nullable=False)
     is_verified = db.Column(db.Boolean, default=False, nullable=False)
+    
+    # Social auth
+    auth_provider = db.Column(db.String(20), default='local', nullable=False)
+    provider_id = db.Column(db.String(255), nullable=True)
+    
     verification_token = db.Column(db.String(255))
     verification_token_expires = db.Column(db.DateTime(timezone=True))
     reset_token = db.Column(db.String(255))
@@ -45,15 +50,14 @@ class User(db.Model):
             'role': self.role.value,
             'is_verified': self.is_verified,
             'is_active': self.is_active,
+            'auth_provider': self.auth_provider,
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'updated_at': self.updated_at.isoformat() if self.updated_at else None,
             'last_login_at': self.last_login_at.isoformat() if self.last_login_at else None
         }
-        
         if include_sensitive:
             data['verification_token'] = self.verification_token
             data['reset_token'] = self.reset_token
-        
         return data
     
     @property

@@ -1,13 +1,14 @@
-import React from "react";
-
 function LandingPage() {
-	return (
-		<div className="min-w-screen min-h-screen flex items-center justify-center">
-			<h1 className="text-3xl font-semibold cursor-pointer hover:scale-110 transition-all">
-				Hello Marco :)
-			</h1>
-		</div>
-	);
+  return (
+    <div>
+      {/* Hero */}
+      <div className="max-w-4xl mx-auto px-6 py-24 text-center space-y-6">
+        <h1 className="text-5xl font-extrabold text-gray-900 leading-tight">
+          <span className="text-black">LasalleVibers</span>
+        </h1>
+      </div>
+    </div>
+  );
 }
 
 export default LandingPage;

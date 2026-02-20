@@ -48,6 +48,10 @@ class Config:
     CLOUDINARY_CLOUD_NAME = get_env('CLOUDINARY_CLOUD_NAME')
     CLOUDINARY_API_KEY = get_env('CLOUDINARY_API_KEY')
     CLOUDINARY_API_SECRET = get_env('CLOUDINARY_API_SECRET')
+
+    # Google OAuth
+    GOOGLE_CLIENT_ID = get_env('GOOGLE_CLIENT_ID')
+    GOOGLE_CLIENT_SECRET = get_env('GOOGLE_CLIENT_SECRET')
     
     # Rate Limiting
     RATELIMIT_DEFAULT = "200/day;50/hour"
