@@ -99,6 +99,25 @@ POST /auth/logout
 
 ---
 
+### Google OAuth (Login/Register)
+
+```
+POST /auth/google
+```
+
+**Body:**
+
+```json
+{
+  "access_token": "ya29.a0AfB_by...",
+  "intent": "login" // or "register"
+}
+```
+
+**Response:** Same as normal Login. Returns JWT tokens and user data. Creates new user if `intent="register"` and email is not registered.
+
+---
+
 ### Verify Email
 
 ```
@@ -191,6 +210,7 @@ GET /users/me
 
 ```
 PUT /users/me
+PATCH /users/me
 ```
 
 **Headers:** `Authorization: Bearer <access_token>`
@@ -200,8 +220,36 @@ PUT /users/me
 ```json
 {
   "username": "new_username",
-  "full_name": "New Name",
-  "avatar_url": "https://..."
+  "full_name": "New Name"
+}
+```
+
+---
+
+### Upload Avatar
+
+```
+POST /users/me/avatar
+```
+
+**Headers:**
+
+- `Authorization: Bearer <access_token>`
+- `Content-Type: multipart/form-data`
+
+**Body:** Form-Data containing the image file.
+
+- `avatar`: (File) The image file to upload (jpg, png, jpeg). Max 5MB.
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "message": "Avatar berhasil diupdate",
+  "data": {
+    "avatar_url": "https://res.cloudinary.com/..."
+  }
 }
 ```
 
