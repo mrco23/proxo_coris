@@ -1,12 +1,9 @@
 """Flask application factory"""
 from flask import Flask, jsonify
-from werkzeug.exceptions import HTTPException as WerkzeugHTTPException
 
 from app.config.environment import get_config
 from app.config.extensions import db, migrate, jwt, mail, cors, limiter
-from app.utils.exceptions import HTTPException
-from app.utils.response import error_response
-from app.utils.logger import logger
+from app.config.utilities_setup import register_error_handlers, register_jwt_callbacks, register_request_logger
 
 
 def create_app(config_class=None):
@@ -18,15 +15,35 @@ def create_app(config_class=None):
     
     _init_extensions(app)
     _register_blueprints(app)
-    _register_error_handlers(app)
-    _register_jwt_callbacks(app)
+    
+    register_error_handlers(app)
+    register_jwt_callbacks(app, jwt)
+    register_request_logger(app)
     
     @app.route('/health')
     def health():
         return jsonify({'success': True, 'message': 'OK'}), 200
     
-    logger.info(f"Application created with config: {config_class.__name__}")
-    
+    # Startup log
+    cors_origins = app.config.get('CORS_ORIGINS', ['*'])
+    if isinstance(cors_origins, list):
+        cors_str = ', '.join(cors_origins)
+    else:
+        cors_str = str(cors_origins)
+        
+    port = app.config.get('PORT', 5000)
+    host = app.config.get('HOST', '127.0.0.1')
+    server_url = f"http://{host}:{port}"
+        
+    print(
+        f"\n{'='*55}\n\n"
+        f"🚀 Server API Started Successfully\n\n"
+        f"{'-'*55}\n\n"
+        f"⚙️  Environment  : {config_class.__name__}\n"
+        f"🔗 Server URL   : {server_url}\n"
+        f"🔌 CORS Origins : {cors_str}\n\n"
+        f"{'='*55}\n"
+    )
     return app
 
 
@@ -51,41 +68,3 @@ def _register_blueprints(app):
     from app.api.routes import register_routes
     register_routes(app)
 
-
-def _register_error_handlers(app):
-    
-    @app.errorhandler(HTTPException)
-    def handle_http_exception(error):
-        return jsonify(error.to_dict()), error.status_code
-    
-    @app.errorhandler(WerkzeugHTTPException)
-    def handle_werkzeug_exception(error):
-        return error_response(message=error.description, status_code=error.code)
-    
-    @app.errorhandler(Exception)
-    def handle_generic_exception(error):
-        logger.exception(f"Unhandled exception: {error}")
-        return error_response(message="Internal Server Error", status_code=500)
-    
-    @app.errorhandler(429)
-    def handle_rate_limit_error(error):
-        return error_response(message="Rate limit exceeded. Please try again later.", status_code=429)
-
-
-def _register_jwt_callbacks(app):
-    
-    @jwt.expired_token_loader
-    def expired_token_callback(jwt_header, jwt_payload):
-        return error_response(message="Token has expired", status_code=401)
-    
-    @jwt.invalid_token_loader
-    def invalid_token_callback(error):
-        return error_response(message="Invalid token", status_code=401)
-    
-    @jwt.unauthorized_loader
-    def missing_token_callback(error):
-        return error_response(message="Authorization token is required", status_code=401)
-    
-    @jwt.revoked_token_loader
-    def revoked_token_callback(jwt_header, jwt_payload):
-        return error_response(message="Token has been revoked", status_code=401)
