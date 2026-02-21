@@ -62,6 +62,11 @@ def _init_extensions(app):
             "supports_credentials": True
         }
     })
+    
+    # Cloudinary
+    from app.lib.cloudinary import init_cloudinary
+    with app.app_context():
+        init_cloudinary()
 
 
 def _register_blueprints(app):

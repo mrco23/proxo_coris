@@ -7,6 +7,7 @@ from app.utils.logger import logger
 
 
 def init_cloudinary():
+    """Initialize Cloudinary config at app startup."""
     cloudinary.config(
         cloud_name=current_app.config.get('CLOUDINARY_CLOUD_NAME'),
         api_key=current_app.config.get('CLOUDINARY_API_KEY'),
@@ -17,8 +18,6 @@ def init_cloudinary():
 
 def upload_image(file, folder="uploads", public_id=None, transformation=None):
     try:
-        init_cloudinary()
-        
         upload_options = {"folder": folder, "resource_type": "image", "overwrite": True}
         
         if public_id:
@@ -47,7 +46,6 @@ def upload_image(file, folder="uploads", public_id=None, transformation=None):
 
 def delete_image(public_id):
     try:
-        init_cloudinary()
         result = cloudinary.uploader.destroy(public_id)
         
         if result.get("result") == "ok":
@@ -61,8 +59,6 @@ def delete_image(public_id):
 
 
 def get_image_url(public_id, width=None, height=None, crop="fill"):
-    init_cloudinary()
-    
     transformations = []
     
     if width or height:
