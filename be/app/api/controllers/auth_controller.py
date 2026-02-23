@@ -18,7 +18,7 @@ def register():
         data = RegisterSchema().load(request.get_json() or {})
     except ValidationError as err:
         return error_response(
-            message="Validation failed",
+            message="Validasi gagal",
             errors=[{"field": k, "message": v[0]} for k, v in err.messages.items()],
             status_code=422
         )
@@ -37,7 +37,7 @@ def register():
     
     return success_response(
         data=user.to_dict(),
-        message="Registration successful. Please check your email to verify your account.",
+        message="Registrasi berhasil. Silakan cek email untuk verifikasi akun kamu.",
         status_code=201
     )
 
@@ -47,7 +47,7 @@ def login():
         data = LoginSchema().load(request.get_json() or {})
     except ValidationError as err:
         return error_response(
-            message="Validation failed",
+            message="Validasi gagal",
             errors=[{"field": k, "message": v[0]} for k, v in err.messages.items()],
             status_code=422
         )
@@ -64,7 +64,7 @@ def login():
             'refresh_token': refresh_token,
             'token_type': 'Bearer'
         },
-        message="Login successful"
+        message="Masuk berhasil"
     )
 
 
@@ -75,18 +75,18 @@ def refresh():
     
     return success_response(
         data={'access_token': access_token, 'token_type': 'Bearer'},
-        message="Token refreshed successfully"
+        message="Token berhasil diperbarui"
     )
 
 
 @jwt_required_custom
 def logout():
-    return success_response(message="Logout successful")
+    return success_response(message="Logout berhasil")
 
 
 def verify_email(token):
     user = AuthService.verify_email(token)
-    return success_response(data=user.to_dict(), message="Email verified successfully")
+    return success_response(data=user.to_dict(), message="Email berhasil diverifikasi")
 
 
 def resend_verification():
@@ -94,7 +94,7 @@ def resend_verification():
         data = ForgotPasswordSchema().load(request.get_json() or {})
     except ValidationError as err:
         return error_response(
-            message="Validation failed",
+            message="Validasi gagal",
             errors=[{"field": k, "message": v[0]} for k, v in err.messages.items()],
             status_code=422
         )
@@ -106,7 +106,7 @@ def resend_verification():
     except Exception:
         pass
     
-    return success_response(message="Verification email sent")
+    return success_response(message="Email verifikasi berhasil dikirim")
 
 
 def forgot_password():
@@ -114,7 +114,7 @@ def forgot_password():
         data = ForgotPasswordSchema().load(request.get_json() or {})
     except ValidationError as err:
         return error_response(
-            message="Validation failed",
+            message="Validasi gagal",
             errors=[{"field": k, "message": v[0]} for k, v in err.messages.items()],
             status_code=422
         )
@@ -128,7 +128,7 @@ def forgot_password():
             pass
     
     return success_response(
-        message="If an account exists with that email, a password reset link has been sent"
+        message="Jika akun dengan email tersebut ada, link reset password telah dikirim"
     )
 
 
@@ -137,13 +137,13 @@ def reset_password():
         data = ResetPasswordSchema().load(request.get_json() or {})
     except ValidationError as err:
         return error_response(
-            message="Validation failed",
+            message="Validasi gagal",
             errors=[{"field": k, "message": v[0]} for k, v in err.messages.items()],
             status_code=422
         )
     
     AuthService.reset_password(token=data['token'], new_password=data['password'])
-    return success_response(message="Password reset successful")
+    return success_response(message="Password berhasil direset")
 
 
 @jwt_required_custom
@@ -152,7 +152,7 @@ def change_password():
         data = ChangePasswordSchema().load(request.get_json() or {})
     except ValidationError as err:
         return error_response(
-            message="Validation failed",
+            message="Validasi gagal",
             errors=[{"field": k, "message": v[0]} for k, v in err.messages.items()],
             status_code=422
         )
@@ -163,4 +163,4 @@ def change_password():
         new_password=data['new_password']
     )
     
-    return success_response(message="Password changed successfully")
+    return success_response(message="Password berhasil diubah")

@@ -14,7 +14,7 @@ function PublicLayout() {
       <nav className="bg-white border-b border-gray-200 px-6 py-3">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link to="/" className="text-xl font-bold text-indigo-600">
-            ProxoCoris
+            LasalleVibers
           </Link>
           <div className="flex items-center gap-3">
             {isAuthenticated ? (
@@ -37,7 +37,7 @@ function PublicLayout() {
                   onClick={handleLogout}
                   className="text-sm text-red-500 hover:text-red-700 transition font-medium"
                 >
-                  Logout
+                  Keluar
                 </button>
               </>
             ) : (
@@ -46,7 +46,7 @@ function PublicLayout() {
                   to="/login"
                   className="text-sm text-gray-600 hover:text-indigo-600 transition font-medium"
                 >
-                  Login
+                  Masuk
                 </Link>
                 <Link
                   to="/register"

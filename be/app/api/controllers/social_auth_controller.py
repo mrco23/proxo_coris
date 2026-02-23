@@ -19,7 +19,7 @@ def google_auth():
         data = GoogleAuthSchema().load(request.get_json() or {})
     except ValidationError as err:
         return error_response(
-            message="Validation failed",
+            message="Validasi gagal",
             errors=[{"field": k, "message": v[0]} for k, v in err.messages.items()],
             status_code=422
         )
@@ -37,6 +37,6 @@ def google_auth():
             'token_type': 'Bearer',
             'is_new_user': is_new
         },
-        message="Registrasi Google berhasil" if is_new else "Login Google berhasil",
+        message="Registrasi Google berhasil" if is_new else "Masuk Google berhasil",
         status_code=201 if is_new else 200
     )

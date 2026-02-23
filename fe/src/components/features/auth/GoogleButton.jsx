@@ -15,12 +15,12 @@ export function GoogleLoginButton({ onSuccess, onError, disabled = false }) {
         onSuccess?.({ user });
       } catch (err) {
         onError?.({
-          message: err.response?.data?.message || "Login Google gagal",
+          message: err.response?.data?.message || "Gagal masuk dengan Google",
           status: err.response?.status,
         });
       }
     },
-    onError: () => onError?.({ message: "Login Google dibatalkan" }),
+    onError: () => onError?.({ message: "Masuk dengan Google dibatalkan" }),
   });
 
   return (

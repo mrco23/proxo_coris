@@ -31,7 +31,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md space-y-5">
-        <h1 className="text-2xl font-bold text-center text-gray-800">Login</h1>
+        <h1 className="text-2xl font-bold text-center text-gray-800">Masuk</h1>
 
         {error && (
           <div className="bg-red-50 text-red-600 text-sm p-3 rounded-lg">
@@ -63,7 +63,7 @@ export default function LoginPage() {
             disabled={loading}
             className="w-full bg-indigo-600 text-white py-2.5 rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition font-medium"
           >
-            {loading ? "Memproses..." : "Login"}
+            {loading ? "Memproses..." : "Masuk"}
           </button>
 
           <div className="text-right">

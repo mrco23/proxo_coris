@@ -12,7 +12,7 @@ class UserService:
     def get_by_id(user_id):
         user = db.session.get(User, user_id)
         if not user:
-            raise NotFoundError("User not found")
+            raise NotFoundError("Pengguna tidak ditemukan")
         return user
     
     @staticmethod
@@ -63,7 +63,7 @@ class UserService:
                 User.id != user.id
             ).first()
             if existing:
-                raise ConflictError("Username already taken")
+                raise ConflictError("Username sudah digunakan")
             kwargs['username'] = kwargs['username'].lower()
         
         if 'email' in kwargs and kwargs['email']:
@@ -72,7 +72,7 @@ class UserService:
                 User.id != user.id
             ).first()
             if existing:
-                raise ConflictError("Email already registered")
+                raise ConflictError("Email sudah terdaftar")
             kwargs['email'] = kwargs['email'].lower()
         
         # Handle role conversion
@@ -91,7 +91,7 @@ class UserService:
     def delete(user_id):
         user = db.session.get(User, user_id)
         if not user:
-            raise NotFoundError("User not found")
+            raise NotFoundError("Pengguna tidak ditemukan")
         
         db.session.delete(user)
         db.session.commit()
@@ -106,7 +106,7 @@ class UserService:
     def deactivate(user_id):
         user = db.session.get(User, user_id)
         if not user:
-            raise NotFoundError("User not found")
+            raise NotFoundError("Pengguna tidak ditemukan")
         
         user.is_active = False
         db.session.commit()

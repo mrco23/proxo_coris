@@ -18,11 +18,11 @@ VERIFICATION_EMAIL_TEMPLATE = """
 </head>
 <body>
     <div class="container">
-        <h1>Verify Your Email</h1>
-        <p>Thank you for registering. Please click the button below to verify your email address:</p>
-        <a href="{{ verification_url }}" class="button">Verify Email</a>
-        <p>Or copy this link: {{ verification_url }}</p>
-        <p>This link will expire in 24 hours.</p>
+        <h1>Verifikasi Email Kamu</h1>
+        <p>Terima kasih telah mendaftar. Silakan klik tombol di bawah ini untuk memverifikasi alamat email kamu:</p>
+        <a href="{{ verification_url }}" class="button">Verifikasi Email</a>
+        <p>Atau salin link ini: {{ verification_url }}</p>
+        <p>Link ini akan kedaluwarsa dalam 24 jam.</p>
     </div>
 </body>
 </html>
@@ -41,11 +41,11 @@ PASSWORD_RESET_EMAIL_TEMPLATE = """
 </head>
 <body>
     <div class="container">
-        <h1>Reset Your Password</h1>
-        <p>Click the button below to create a new password:</p>
+        <h1>Reset Password Kamu</h1>
+        <p>Klik tombol di bawah ini untuk membuat password baru:</p>
         <a href="{{ reset_url }}" class="button">Reset Password</a>
-        <p>Or copy this link: {{ reset_url }}</p>
-        <p>This link will expire in 1 hour.</p>
+        <p>Atau salin link ini: {{ reset_url }}</p>
+        <p>Link ini akan kedaluwarsa dalam 1 jam.</p>
     </div>
 </body>
 </html>
@@ -58,7 +58,7 @@ def send_email(to, subject, html_body, text_body=None):
             subject=subject,
             recipients=[to],
             html=html_body,
-            body=text_body or "Please view this email in an HTML-capable client."
+            body=text_body or "Silakan buka email ini di aplikasi yang mendukung HTML."
         )
         mail.send(msg)
         logger.info(f"Email sent to {to}: {subject}")
@@ -73,7 +73,7 @@ def send_verification_email(to, token):
     verification_url = f"{base_url}/verify-email?token={token}"
     
     html_body = render_template_string(VERIFICATION_EMAIL_TEMPLATE, verification_url=verification_url)
-    return send_email(to=to, subject="Verify Your Email Address", html_body=html_body)
+    return send_email(to=to, subject="Verifikasi Email Kamu", html_body=html_body)
 
 
 def send_password_reset_email(to, token):
@@ -81,4 +81,4 @@ def send_password_reset_email(to, token):
     reset_url = f"{base_url}/reset-password?token={token}"
     
     html_body = render_template_string(PASSWORD_RESET_EMAIL_TEMPLATE, reset_url=reset_url)
-    return send_email(to=to, subject="Reset Your Password", html_body=html_body)
+    return send_email(to=to, subject="Reset Password Kamu", html_body=html_body)

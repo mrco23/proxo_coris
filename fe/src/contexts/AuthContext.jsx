@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
     } catch (err) {
       return {
         success: false,
-        message: err.response?.data?.message || "Login gagal",
+        message: err.response?.data?.message || "Gagal masuk",
       };
     }
   };

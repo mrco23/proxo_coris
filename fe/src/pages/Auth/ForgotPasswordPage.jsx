@@ -79,7 +79,7 @@ export default function ForgotPasswordPage() {
             to="/login"
             className="text-indigo-600 hover:underline font-medium"
           >
-            ← Kembali ke Login
+            ← Kembali ke Halaman Masuk
           </Link>
         </p>
       </div>

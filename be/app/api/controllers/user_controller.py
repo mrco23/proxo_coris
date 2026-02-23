@@ -14,7 +14,7 @@ from app.utils.response import success_response, error_response, paginated_respo
 def get_me():
     return success_response(
         data=request.current_user.to_dict(),
-        message="Profile retrieved successfully"
+        message="Profil berhasil diambil"
     )
 
 
@@ -24,7 +24,7 @@ def update_me():
         data = UpdateUserSchema().load(request.get_json() or {})
     except ValidationError as err:
         return error_response(
-            message="Validation failed",
+            message="Validasi gagal",
             errors=[{"field": k, "message": v[0]} for k, v in err.messages.items()],
             status_code=422
         )
@@ -36,18 +36,18 @@ def update_me():
     else:
         user = request.current_user
     
-    return success_response(data=user.to_dict(), message="Profile updated successfully")
+    return success_response(data=user.to_dict(), message="Profil berhasil diperbarui")
 
 
 @jwt_required_custom
 def upload_avatar():
     if 'avatar' not in request.files:
-        return error_response(message="No file part", status_code=400)
+        return error_response(message="File tidak ditemukan", status_code=400)
     
     file = request.files['avatar']
     
     if file.filename == '':
-        return error_response(message="No selected file", status_code=400)
+        return error_response(message="Tidak ada file yang dipilih", status_code=400)
     
     from app.lib.cloudinary import upload_image
     
@@ -59,11 +59,11 @@ def upload_avatar():
     )
     
     if not upload_result:
-        return error_response(message="Failed to upload image", status_code=500)
+        return error_response(message="Gagal mengunggah gambar", status_code=500)
     
     user = UserService.upload_avatar(request.current_user, upload_result['url'])
     
-    return success_response(data=user.to_dict(), message="Avatar uploaded successfully")
+    return success_response(data=user.to_dict(), message="Avatar berhasil diperbarui")
 
 
 @admin_required
@@ -72,7 +72,7 @@ def get_users():
         query_params = UserListQuerySchema().load(request.args)
     except ValidationError as err:
         return error_response(
-            message="Validation failed",
+            message="Validasi gagal",
             errors=[{"field": k, "message": v[0]} for k, v in err.messages.items()],
             status_code=422
         )
@@ -93,14 +93,14 @@ def get_users():
         total=total,
         page=query_params.get('page', 1),
         per_page=query_params.get('per_page', 20),
-        message="Users retrieved successfully"
+        message="Daftar pengguna berhasil diambil"
     )
 
 
 @admin_required
 def get_user(user_id):
     user = UserService.get_by_id(user_id)
-    return success_response(data=user.to_dict(), message="User retrieved successfully")
+    return success_response(data=user.to_dict(), message="Data pengguna berhasil diambil")
 
 
 @admin_required
@@ -109,7 +109,7 @@ def update_user(user_id):
         data = UpdateUserAdminSchema().load(request.get_json() or {})
     except ValidationError as err:
         return error_response(
-            message="Validation failed",
+            message="Validasi gagal",
             errors=[{"field": k, "message": v[0]} for k, v in err.messages.items()],
             status_code=422
         )
@@ -120,22 +120,22 @@ def update_user(user_id):
     if update_data:
         user = UserService.update(user, **update_data)
     
-    return success_response(data=user.to_dict(), message="User updated successfully")
+    return success_response(data=user.to_dict(), message="Pengguna berhasil diperbarui")
 
 
 @admin_required
 def delete_user(user_id):
     if user_id == request.current_user.id:
-        return error_response(message="Cannot delete your own account", status_code=400)
+        return error_response(message="Tidak bisa menghapus akun sendiri", status_code=400)
     
     UserService.delete(user_id)
-    return success_response(message="User deleted successfully")
+    return success_response(message="Pengguna berhasil dihapus")
 
 
 @admin_required
 def deactivate_user(user_id):
     if user_id == request.current_user.id:
-        return error_response(message="Cannot deactivate your own account", status_code=400)
+        return error_response(message="Tidak bisa menonaktifkan akun sendiri", status_code=400)
     
     user = UserService.deactivate(user_id)
-    return success_response(data=user.to_dict(), message="User deactivated successfully")
+    return success_response(data=user.to_dict(), message="Pengguna berhasil dinonaktifkan")

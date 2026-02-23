@@ -17,11 +17,11 @@ class AuthService:
     def register(email, username, password, full_name):
         # Check if email exists
         if db.session.query(User).filter_by(email=email.lower()).first():
-            raise ConflictError("Email already registered")
+            raise ConflictError("Email sudah terdaftar")
         
         # Check if username exists
         if db.session.query(User).filter_by(username=username.lower()).first():
-            raise ConflictError("Username already taken")
+            raise ConflictError("Username sudah digunakan")
         
         # Create verification token
         verification_token = secrets.token_urlsafe(32)
@@ -46,19 +46,19 @@ class AuthService:
         user = db.session.query(User).filter_by(email=email.lower()).first()
 
         if not user:
-            raise UnauthorizedError("User not found")
+            raise UnauthorizedError("Akun tidak ditemukan")
 
         if user.auth_provider == 'google' and not user.password_hash:
-            raise UnauthorizedError("Akun ini terdaftar via Google. Silakan login dengan Google.")
+            raise UnauthorizedError("Akun ini terdaftar via Google. Silakan masuk dengan Google.")
         
         if not verify_password(password, user.password_hash):
-            raise UnauthorizedError("Invalid email or password")
+            raise UnauthorizedError("Email atau password salah")
         
         if not user.is_active:
-            raise UnauthorizedError("Account is deactivated")
+            raise UnauthorizedError("Akun telah dinonaktifkan")
 
         if not user.is_verified:
-            raise UnauthorizedError("Account is not verified")
+            raise UnauthorizedError("Akun belum diverifikasi. Silakan cek email kamu.")
         
         # Update last login
         user.last_login_at = datetime.now(timezone.utc)
@@ -75,10 +75,10 @@ class AuthService:
         user = db.session.get(User, user_id)
         
         if not user:
-            raise UnauthorizedError("User not found")
+            raise UnauthorizedError("Akun tidak ditemukan")
         
         if not user.is_active:
-            raise UnauthorizedError("Account is deactivated")
+            raise UnauthorizedError("Akun telah dinonaktifkan")
         
         return create_access_token(identity=user.id)
     
@@ -87,10 +87,10 @@ class AuthService:
         user = db.session.query(User).filter_by(verification_token=token).first()
         
         if not user:
-            raise BadRequestError("Invalid verification token")
+            raise BadRequestError("Token verifikasi tidak valid")
         
         if user.verification_token_expires < datetime.now(timezone.utc):
-            raise BadRequestError("Verification token has expired")
+            raise BadRequestError("Token verifikasi sudah kedaluwarsa")
         
         user.is_verified = True
         user.verification_token = None
@@ -104,10 +104,10 @@ class AuthService:
         user = db.session.query(User).filter_by(email=email.lower()).first()
         
         if not user:
-            raise NotFoundError("User not found")
+            raise NotFoundError("Akun tidak ditemukan")
         
         if user.is_verified:
-            raise BadRequestError("Email already verified")
+            raise BadRequestError("Email sudah terverifikasi")
         
         user.verification_token = secrets.token_urlsafe(32)
         user.verification_token_expires = datetime.now(timezone.utc) + timedelta(hours=24)
@@ -133,10 +133,10 @@ class AuthService:
         user = db.session.query(User).filter_by(reset_token=token).first()
         
         if not user:
-            raise BadRequestError("Invalid reset token")
+            raise BadRequestError("Token reset tidak valid")
         
         if user.reset_token_expires < datetime.now(timezone.utc):
-            raise BadRequestError("Reset token has expired")
+            raise BadRequestError("Token reset sudah kedaluwarsa")
         
         user.password_hash = hash_password(new_password)
         user.reset_token = None
@@ -148,7 +148,7 @@ class AuthService:
     @staticmethod
     def change_password(user, current_password, new_password):
         if not verify_password(current_password, user.password_hash):
-            raise UnauthorizedError("Current password is incorrect")
+            raise UnauthorizedError("Password saat ini salah")
         
         user.password_hash = hash_password(new_password)
         db.session.commit()

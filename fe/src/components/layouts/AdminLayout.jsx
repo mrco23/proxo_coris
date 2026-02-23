@@ -3,8 +3,8 @@ import { useAuth } from "../../contexts/AuthContext";
 
 const menuItems = [
   { label: "Dashboard", path: "/admin", icon: "📊" },
-  { label: "Users", path: "/admin/users", icon: "👥" },
-  { label: "Profile", path: "/admin/profile", icon: "⚙️" },
+  { label: "Pengguna", path: "/admin/users", icon: "👥" },
+  { label: "Profil", path: "/admin/profile", icon: "⚙️" },
 ];
 
 function AdminLayout() {
@@ -24,9 +24,9 @@ function AdminLayout() {
         {/* Brand */}
         <div className="px-6 py-5 border-b border-gray-800">
           <Link to="/admin" className="text-lg font-bold text-white">
-            ProxoCoris
+            LasalleVibers
           </Link>
-          <p className="text-xs text-gray-400 mt-0.5">Admin Panel</p>
+          <p className="text-xs text-gray-400 mt-0.5">Panel Admin</p>
         </div>
 
         {/* Menu */}
@@ -76,7 +76,7 @@ function AdminLayout() {
             onClick={handleLogout}
             className="w-full cursor-pointer text-sm text-gray-400 hover:text-white hover:bg-gray-800 px-3 py-2 rounded-lg transition text-center"
           >
-            Logout
+            Keluar
           </button>
         </div>
       </aside>

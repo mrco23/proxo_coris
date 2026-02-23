@@ -77,7 +77,7 @@ class SocialAuthService:
             if existing.auth_provider == 'local' and existing.provider_id != provider_id:
                 raise ConflictError(
                     "Email ini sudah terdaftar menggunakan email dan password. "
-                    "Silakan login dengan email dan password kamu."
+                    "Silakan masuk dengan email dan password kamu."
                 )
 
             # Link provider jika belum
@@ -100,10 +100,10 @@ class SocialAuthService:
                 if existing.auth_provider == 'local':
                     raise ConflictError(
                         "Email ini sudah terdaftar menggunakan email dan password. "
-                        "Silakan login dengan email dan password kamu."
+                        "Silakan masuk dengan email dan password kamu."
                     )
                 else:
-                    raise ConflictError("Email ini sudah terdaftar. Silakan login.")
+                    raise ConflictError("Email ini sudah terdaftar. Silakan masuk.")
 
             username = SocialAuthService._generate_unique_username(
                 user_info['full_name'] or email.split('@')[0]
