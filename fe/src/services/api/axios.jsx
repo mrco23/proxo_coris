@@ -35,6 +35,10 @@ export const authAPI = {
   getMe: () => api.get("/users/me"),
   logout: () => api.post("/auth/logout"),
   refreshToken: () => api.post("/auth/refresh"),
+  resendVerification: (data) => api.post("/auth/resend-verification", data),
+  forgotPassword: (data) => api.post("/auth/forgot-password", data),
+  resetPassword: (data) => api.post("/auth/reset-password", data),
+  changePassword: (data) => api.post("/auth/change-password", data),
 };
 
 export const userAPI = {
@@ -42,6 +46,13 @@ export const userAPI = {
   getAll: (params) => api.get("/users", { params }),
   getById: (id) => api.get(`/users/${id}`),
   updateMe: (data) => api.patch("/users/me", data),
+  uploadAvatar: (file) => {
+    const formData = new FormData();
+    formData.append("avatar", file);
+    return api.post("/users/me/avatar", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+  },
 
   // Admin
   update: (id, data) => api.patch(`/users/${id}`, data),

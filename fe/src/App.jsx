@@ -13,6 +13,8 @@ import AdminLayout from "./components/layouts/AdminLayout";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/Auth/LoginPage";
 import RegisterPage from "./pages/Auth/RegisterPage";
+import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/Auth/ResetPasswordPage";
 import VerifyEmailPage from "./pages/Auth/VerifyEmailPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import UserProfile from "./pages/Users/UserProfile";
@@ -27,7 +29,9 @@ function App() {
       <Route element={<GuestRoute />}>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       </Route>
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
       <Route path="/verify-email" element={<VerifyEmailPage />} />
 
       {/* Public + User (shared Navbar via PublicLayout) */}

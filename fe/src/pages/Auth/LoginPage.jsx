@@ -10,7 +10,8 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +33,11 @@ export default function LoginPage() {
       <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md space-y-5">
         <h1 className="text-2xl font-bold text-center text-gray-800">Login</h1>
 
-        {error && <div className="bg-red-50 text-red-600 text-sm p-3 rounded-lg">{error}</div>}
+        {error && (
+          <div className="bg-red-50 text-red-600 text-sm p-3 rounded-lg">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
@@ -60,6 +65,15 @@ export default function LoginPage() {
           >
             {loading ? "Memproses..." : "Login"}
           </button>
+
+          <div className="text-right">
+            <Link
+              to="/forgot-password"
+              className="text-sm text-indigo-600 hover:underline"
+            >
+              Lupa password?
+            </Link>
+          </div>
         </form>
 
         <div className="flex items-center gap-3">
@@ -79,7 +93,10 @@ export default function LoginPage() {
 
         <p className="text-center text-sm text-gray-500">
           Belum punya akun?{" "}
-          <Link to="/register" className="text-indigo-600 hover:underline font-medium">
+          <Link
+            to="/register"
+            className="text-indigo-600 hover:underline font-medium"
+          >
             Daftar
           </Link>
         </p>
