@@ -1,5 +1,30 @@
 @import "tailwindcss";
 
+/* ===== Brand Color Palette ===== */
+:root {
+  /* Primary — indigo/dark blue */
+  --primary: #1e1f78;
+  --primary-dark: #1a1b65;
+
+  /* Accent — blue */
+  --accent: #5697ff;
+  --accent-dark: #034f99;
+
+  /* Accent — cyan */
+  --cyan: #12bae3;
+
+  /* Neutrals — dark */
+  --dark: #0f0f0f;
+  --dark-soft: #16161c;
+  --dark-text: #2c2c2c;
+
+  /* Neutrals — gray */
+  --gray: #696969;
+  --gray-muted: #7c7c7c;
+  --gray-light: #888888;
+  --gray-placeholder: #a7a7a7;
+}
+
 /* Dark mode: aktif saat <html> punya class "dark" */
 @custom-variant dark (&:where(.dark, .dark *));
 

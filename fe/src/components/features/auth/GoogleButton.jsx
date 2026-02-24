@@ -27,10 +27,9 @@ export function GoogleLoginButton({ onSuccess, onError, disabled = false }) {
     <button
       onClick={() => googleLogin()}
       disabled={disabled}
-      className="w-full flex items-center justify-center gap-3 border border-gray-300 py-2.5 rounded-lg hover:bg-gray-50 disabled:opacity-50 transition font-medium"
+      className=" flex bg-(--primary) items-center justify-center gap-3 border border-black p-1 rounded-full hover:bg-(--primary-dark) disabled:opacity-50 transition font-medium cursor-pointer"
     >
       <GoogleIcon />
-      Lanjutkan dengan Google
     </button>
   );
 }
@@ -62,10 +61,9 @@ export function GoogleRegisterButton({ onSuccess, onError, disabled = false }) {
     <button
       onClick={() => googleRegister()}
       disabled={disabled}
-      className="w-full flex items-center justify-center gap-3 border border-gray-300 py-2.5 rounded-lg hover:bg-gray-50 disabled:opacity-50 transition font-medium"
+      className="flex bg-(--primary) items-center justify-center gap-3 border border-black p-1 rounded-full hover:bg-(--primary-dark) disabled:opacity-50 transition font-medium cursor-pointer"
     >
       <GoogleIcon />
-      Daftar dengan Google
     </button>
   );
 }

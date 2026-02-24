@@ -1,7 +1,7 @@
-import HeaderLogo from "./header/HeaderLogo";
-import HeaderNav from "./header/HeaderNav";
-import HeaderAuth from "./header/HeaderAuth";
-import MobileMenu from "./header/MobileMenu";
+import HeaderLogo from "./HeaderLogo";
+import HeaderNav from "./HeaderNav";
+import HeaderAuth from "./HeaderAuth";
+import MobileMenu from "./MobileMenu";
 
 function Header({ isAuthenticated, user, onLogout }) {
   return (

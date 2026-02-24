@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import { useAuth } from "../../contexts/AuthContext";
-import Header from "./partials/Header";
+import Header from "./partials/header/Header";
 import Footer from "./partials/Footer";
 
 function PublicLayout() {

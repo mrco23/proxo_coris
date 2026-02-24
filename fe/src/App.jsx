@@ -8,6 +8,7 @@ import {
 /* layouts */
 import PublicLayout from "./components/layouts/PublicLayout";
 import AdminLayout from "./components/layouts/AdminLayout";
+import AuthLayout from "./components/layouts/AuthLayout";
 
 /* pages */
 import LandingPage from "./pages/LandingPage";
@@ -27,14 +28,16 @@ function App() {
     <Routes>
       {/* Standalone pages (no layout) */}
       <Route element={<GuestRoute />}>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route element={<AuthLayout />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Route>
       </Route>
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/reset-password" element={<ResetPasswordPage />} />
       <Route path="/verify-email" element={<VerifyEmailPage />} />
 
-      {/* Public + User (shared Navbar via PublicLayout) */}
+      {/* Public + User */}
       <Route element={<PublicLayout />}>
         <Route path="/" element={<LandingPage />} />
 
