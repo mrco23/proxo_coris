@@ -23,6 +23,7 @@
   --gray-muted: #7c7c7c;
   --gray-light: #888888;
   --gray-placeholder: #a7a7a7;
+  --gray-shine: #f3f3fc;
 }
 
 /* Dark mode: aktif saat <html> punya class "dark" */
