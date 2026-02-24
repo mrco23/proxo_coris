@@ -1,11 +1,7 @@
 function AdminDashboard() {
   return (
-    <div>
-      <div className="mx-auto max-w-4xl space-y-6 px-6 py-24 text-center">
-        <h1 className="text-5xl leading-tight font-extrabold text-gray-900">
-          <span className="text-black">LasalleVibers Admin</span>
-        </h1>
-      </div>
+    <div className="space-y-4 md:space-y-6">
+      <h1 className="text-2xl font-bold text-gray-800">Dashboard Admin</h1>
     </div>
   );
 }

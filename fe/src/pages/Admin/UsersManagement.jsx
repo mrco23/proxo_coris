@@ -68,9 +68,7 @@ function AdminDashboard() {
 
   return (
     <div className="space-y-4 md:space-y-6">
-      <h1 className="text-xl font-bold text-gray-800 md:text-2xl">
-        Manajemen User
-      </h1>
+      <h1 className="text-2xl font-bold text-gray-800">Manajemen User</h1>
 
       {/* Filter & Search */}
       <div className="space-y-3 rounded-xl border border-gray-100 bg-white p-3 shadow-sm md:p-4">
@@ -82,11 +80,11 @@ function AdminDashboard() {
             onChange={(e) =>
               setQuery((q) => ({ ...q, search: e.target.value }))
             }
-            className="flex-1 rounded-lg border px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none md:px-4"
+            className="flex-1 rounded-lg border px-3 py-2 text-sm focus:ring-1 focus:ring-(--primary) focus:outline-none md:px-4"
           />
           <button
             type="submit"
-            className="rounded-lg bg-indigo-600 px-3 py-2 text-sm text-white transition hover:bg-indigo-700 md:px-4"
+            className="cursor-pointer rounded-lg bg-(--primary) px-3 py-2 text-sm text-white transition hover:bg-(--primary-dark) md:px-4"
           >
             Cari
           </button>
@@ -98,7 +96,7 @@ function AdminDashboard() {
             onChange={(e) =>
               setQuery((q) => ({ ...q, role: e.target.value, page: 1 }))
             }
-            className="rounded-lg border px-2 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none md:px-3"
+            className="rounded-lg border px-2 py-2 text-sm focus:ring-1 focus:ring-(--primary) focus:outline-none md:px-3"
           >
             <option value="">Semua Role</option>
             <option value="user">User</option>
@@ -110,7 +108,7 @@ function AdminDashboard() {
             onChange={(e) =>
               setQuery((q) => ({ ...q, is_verified: e.target.value, page: 1 }))
             }
-            className="rounded-lg border px-2 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none md:px-3"
+            className="rounded-lg border px-2 py-2 text-sm focus:ring-1 focus:ring-(--primary) focus:outline-none md:px-3"
           >
             <option value="">Semua Status</option>
             <option value="true">Terverifikasi</option>
@@ -122,7 +120,7 @@ function AdminDashboard() {
             onChange={(e) =>
               setQuery((q) => ({ ...q, sort_order: e.target.value, page: 1 }))
             }
-            className="rounded-lg border px-2 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none md:px-3"
+            className="rounded-lg border px-2 py-2 text-sm focus:ring-1 focus:ring-(--primary) focus:outline-none md:px-3"
           >
             <option value="desc">Terbaru</option>
             <option value="asc">Terlama</option>
@@ -138,7 +136,7 @@ function AdminDashboard() {
 
         {loading ? (
           <div className="flex justify-center p-10">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-indigo-600 border-t-transparent" />
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-(--primary) border-t-transparent" />
           </div>
         ) : users.length === 0 ? (
           <div className="p-10 text-center text-sm text-gray-400">
@@ -184,7 +182,7 @@ function AdminDashboard() {
                               className="h-8 w-8 rounded-full object-cover"
                             />
                           ) : (
-                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-xs font-bold text-indigo-600">
+                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-xs font-bold text-(--primary)">
                               {user.full_name?.charAt(0).toUpperCase() || "?"}
                             </div>
                           )}
@@ -274,7 +272,7 @@ function AdminDashboard() {
                         className="h-10 w-10 rounded-full object-cover"
                       />
                     ) : (
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-sm font-bold text-indigo-600">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-sm font-bold text-(--primary)">
                         {user.full_name?.charAt(0).toUpperCase() || "?"}
                       </div>
                     )}
@@ -350,7 +348,7 @@ function AdminDashboard() {
         )}
 
         {/* Pagination */}
-        {meta && meta.total_pages > 1 && (
+        {meta && (
           <div className="flex flex-col items-center justify-between gap-2 border-t border-gray-100 px-4 py-3 text-sm text-gray-500 sm:flex-row">
             <span>
               Menampilkan {users.length} dari {meta.total} user

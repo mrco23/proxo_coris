@@ -57,13 +57,13 @@ export default function ForgotPasswordPage() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-lg border px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              className="w-full rounded-lg border px-4 py-2.5 focus:ring-1 focus:ring-(--primary) focus:outline-none"
               required
             />
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-lg bg-indigo-600 py-2.5 font-medium text-white transition hover:bg-indigo-700 disabled:opacity-50"
+              className="w-full rounded-lg bg-(--primary) py-2.5 font-medium text-white transition hover:bg-(--primary-dark) disabled:opacity-50"
             >
               {loading ? "Mengirim..." : "Kirim Link Reset"}
             </button>
@@ -77,7 +77,7 @@ export default function ForgotPasswordPage() {
         <p className="text-center text-sm text-gray-500">
           <Link
             to="/login"
-            className="font-medium text-indigo-600 hover:underline"
+            className="font-medium text-(--primary) hover:underline"
           >
             ← Kembali ke Halaman Masuk
           </Link>

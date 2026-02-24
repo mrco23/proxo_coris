@@ -40,7 +40,7 @@ function HeaderAuth({ isAuthenticated, user, onLogout }) {
       <div className="relative" ref={avatarRef}>
         <button
           onClick={() => setAvatarOpen(!avatarOpen)}
-          className="flex cursor-pointer items-center gap-2 rounded-full transition hover:ring-2 hover:ring-emerald-200"
+          className="flex cursor-pointer items-center gap-2 rounded-full transition hover:ring-1 hover:ring-emerald-200"
         >
           {user?.avatar_url ? (
             <img

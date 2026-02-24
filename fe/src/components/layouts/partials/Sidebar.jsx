@@ -17,12 +17,26 @@ function Sidebar({ user, sidebarOpen, onClose, onLogout, onNavClick }) {
       }`}
     >
       {/* Brand */}
-      <div className="flex items-center justify-between border-b border-gray-800 px-6 py-5">
-        <div>
-          <Link to="/admin" className="text-lg font-bold text-white">
-            Torang Bersih
+      <div className="flex items-center justify-between border-b border-gray-800 px-6 pt-5 pb-2">
+        <div className="w-full">
+          <Link
+            to="/admin"
+            className="flex w-full shrink-0 items-center gap-2 rounded-2xl py-2"
+            onClick={onNavClick}
+          >
+            <picture>
+              <img
+                src="images/logo-fill.png"
+                alt="logo"
+                className="h-[45px] w-[45px]"
+              />
+            </picture>
+            <p className="flex flex-col gap-0 text-[1.2rem] leading-none font-semibold text-white">
+              <span>TORANG</span>
+              <span>BERSIH</span>
+            </p>
           </Link>
-          <p className="mt-0.5 text-xs text-gray-400">Panel Admin</p>
+          <p className="mt-3 text-sm text-gray-400">Panel Admin</p>
         </div>
         {/* Close button for mobile */}
         <button
@@ -46,7 +60,7 @@ function Sidebar({ user, sidebarOpen, onClose, onLogout, onNavClick }) {
               onClick={onNavClick}
               className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition ${
                 isActive
-                  ? "bg-indigo-600 font-medium text-white"
+                  ? "bg-(--primary) font-medium text-white"
                   : "text-gray-400 hover:bg-gray-800 hover:text-white"
               }`}
             >
@@ -68,7 +82,7 @@ function Sidebar({ user, sidebarOpen, onClose, onLogout, onNavClick }) {
               className="h-8 w-8 rounded-full object-cover"
             />
           ) : (
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-xs font-bold">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-(--primary) text-xs font-bold">
               {user?.full_name?.charAt(0).toUpperCase() || "?"}
             </div>
           )}
