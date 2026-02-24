@@ -1,9 +1,10 @@
 import { Link, useLocation } from "react-router";
+import { LuLayoutDashboard, LuUsers, LuUserCog, LuX } from "react-icons/lu";
 
 const menuItems = [
-  { label: "Dashboard", path: "/admin", icon: "📊" },
-  { label: "Pengguna", path: "/admin/users", icon: "👥" },
-  { label: "Profil", path: "/admin/profile", icon: "⚙️" },
+  { label: "Dashboard", path: "/admin", icon: LuLayoutDashboard },
+  { label: "Pengguna", path: "/admin/users", icon: LuUsers },
+  { label: "Profil", path: "/admin/profile", icon: LuUserCog },
 ];
 
 function Sidebar({ user, sidebarOpen, onClose, onLogout, onNavClick }) {
@@ -19,7 +20,7 @@ function Sidebar({ user, sidebarOpen, onClose, onLogout, onNavClick }) {
       <div className="px-6 py-5 border-b border-gray-800 flex items-center justify-between">
         <div>
           <Link to="/admin" className="text-lg font-bold text-white">
-            LasalleVibers
+            Torang Bersih
           </Link>
           <p className="text-xs text-gray-400 mt-0.5">Panel Admin</p>
         </div>
@@ -29,19 +30,7 @@ function Sidebar({ user, sidebarOpen, onClose, onLogout, onNavClick }) {
           className="lg:hidden text-gray-400 hover:text-white transition"
           aria-label="Tutup sidebar"
         >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <LuX className="w-5 h-5" />
         </button>
       </div>
 
@@ -49,6 +38,7 @@ function Sidebar({ user, sidebarOpen, onClose, onLogout, onNavClick }) {
       <nav className="flex-1 px-3 py-4 space-y-1">
         {menuItems.map((item) => {
           const isActive = location.pathname === item.path;
+          const Icon = item.icon;
           return (
             <Link
               key={item.path}
@@ -60,7 +50,7 @@ function Sidebar({ user, sidebarOpen, onClose, onLogout, onNavClick }) {
                   : "text-gray-400 hover:bg-gray-800 hover:text-white"
               }`}
             >
-              <span>{item.icon}</span>
+              <Icon className="w-4 h-4" />
               {item.label}
             </Link>
           );

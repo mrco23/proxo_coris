@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Outlet, useNavigate } from "react-router";
 import { useAuth } from "../../contexts/AuthContext";
+import { LuMenu } from "react-icons/lu";
 import Sidebar from "./partials/Sidebar";
 
 function AdminLayout() {
@@ -44,19 +45,7 @@ function AdminLayout() {
             className="text-gray-600 hover:text-indigo-600 transition"
             aria-label="Buka sidebar"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
+            <LuMenu className="w-6 h-6" />
           </button>
           <span className="text-sm font-semibold text-gray-800">
             Panel Admin

@@ -1,165 +1,25 @@
-import { useState } from "react";
-import { Link } from "react-router";
+import HeaderLogo from "./header/HeaderLogo";
+import HeaderNav from "./header/HeaderNav";
+import HeaderAuth from "./header/HeaderAuth";
+import MobileMenu from "./header/MobileMenu";
 
 function Header({ isAuthenticated, user, onLogout }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const handleLogout = async () => {
-    setMenuOpen(false);
-    await onLogout();
-  };
-
   return (
-    <nav className="bg-white border-b border-gray-200 px-4 md:px-6 py-3 transition-colors duration-200">
-      <div className="max-w-6xl mx-auto flex items-center justify-between">
-        <Link
-          to="/"
-          className="text-xl font-bold text-indigo-600 flex gap-2 items-center"
-        >
-          <picture>
-            <img
-              src="images/logo.png"
-              alt="logo"
-              className="w-[60px] h-[60px]"
-            />
-          </picture>
-          <p className="flex flex-col gap-0 text-black font-bold text-[1.25rem] leading-none">
-            <span>TORANG</span>
-            <span>BERSIH</span>
-          </p>
-        </Link>
-
-        {/* Desktop menu */}
-        <div className="hidden md:flex items-center gap-3">
-          {isAuthenticated ? (
-            <>
-              {user?.role === "admin" && (
-                <Link
-                  to="/admin"
-                  className="text-sm text-gray-600 hover:text-indigo-600 transition font-medium"
-                >
-                  Admin Panel
-                </Link>
-              )}
-              <Link
-                to="/profile"
-                className="text-sm text-gray-600 hover:text-indigo-600 transition font-medium"
-              >
-                {user?.full_name || user?.username}
-              </Link>
-              <button
-                onClick={handleLogout}
-                className="text-sm text-red-500 hover:text-red-700 transition font-medium"
-              >
-                Keluar
-              </button>
-            </>
-          ) : (
-            <>
-              <Link
-                to="/login"
-                className="text-sm text-gray-600 hover:text-indigo-600 transition font-medium"
-              >
-                Masuk
-              </Link>
-              <Link
-                to="/register"
-                className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium text-sm"
-              >
-                Daftar
-              </Link>
-            </>
-          )}
-        </div>
-
-        {/* Mobile hamburger */}
-        <div className="flex items-center gap-2 md:hidden">
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="text-gray-600 hover:text-indigo-600 transition p-1"
-            aria-label="Toggle menu"
-          >
-            {menuOpen ? (
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            )}
-          </button>
-        </div>
+    <nav className="fixed top-0 left-0 right-0 bg-transparent backdrop-blur-sm h-24 border-b border-gray-200 px-4 md:px-6 py-2 transition-colors duration-200 z-50 w-full flex justify-center">
+      <div className="max-w-6xl w-full mx-auto flex items-center justify-between">
+        <HeaderLogo />
+        <HeaderNav />
+        <HeaderAuth
+          isAuthenticated={isAuthenticated}
+          user={user}
+          onLogout={onLogout}
+        />
+        <MobileMenu
+          isAuthenticated={isAuthenticated}
+          user={user}
+          onLogout={onLogout}
+        />
       </div>
-
-      {/* Mobile menu dropdown */}
-      {menuOpen && (
-        <div className="md:hidden mt-3 pt-3 border-t border-gray-100 space-y-2 pb-1">
-          {isAuthenticated ? (
-            <>
-              {user?.role === "admin" && (
-                <Link
-                  to="/admin"
-                  onClick={() => setMenuOpen(false)}
-                  className="block px-2 py-2 text-sm text-gray-600 hover:text-indigo-600 transition font-medium"
-                >
-                  Admin Panel
-                </Link>
-              )}
-              <Link
-                to="/profile"
-                onClick={() => setMenuOpen(false)}
-                className="block px-2 py-2 text-sm text-gray-600 hover:text-indigo-600 transition font-medium"
-              >
-                {user?.full_name || user?.username}
-              </Link>
-              <button
-                onClick={handleLogout}
-                className="block w-full text-left px-2 py-2 text-sm text-red-500 hover:text-red-700 transition font-medium"
-              >
-                Keluar
-              </button>
-            </>
-          ) : (
-            <>
-              <Link
-                to="/login"
-                onClick={() => setMenuOpen(false)}
-                className="block px-2 py-2 text-sm text-gray-600 hover:text-indigo-600 transition font-medium"
-              >
-                Masuk
-              </Link>
-              <Link
-                to="/register"
-                onClick={() => setMenuOpen(false)}
-                className="block px-2 py-2 text-sm text-indigo-600 hover:text-indigo-700 transition font-medium"
-              >
-                Daftar
-              </Link>
-            </>
-          )}
-        </div>
-      )}
     </nav>
   );
 }
