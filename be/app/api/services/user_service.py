@@ -112,3 +112,14 @@ class UserService:
         db.session.commit()
         
         return user
+    
+    @staticmethod
+    def activate(user_id):
+        user = db.session.get(User, user_id)
+        if not user:
+            raise NotFoundError("Pengguna tidak ditemukan")
+        
+        user.is_active = True
+        db.session.commit()
+        
+        return user

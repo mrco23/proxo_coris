@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { LuMenu, LuX, LuChevronDown } from "react-icons/lu";
 import { fiturItems } from "./navConstants";
 
@@ -11,10 +11,12 @@ function MobileMenu({
   setMenuOpen,
 }) {
   const [mobileFiturOpen, setMobileFiturOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     setMenuOpen(false);
     await onLogout();
+    navigate("/login");
   };
 
   return (

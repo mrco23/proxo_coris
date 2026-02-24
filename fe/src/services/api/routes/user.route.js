@@ -17,4 +17,5 @@ export const userAPI = {
   update: (id, data) => api.patch(`/users/${id}`, data),
   delete: (id) => api.delete(`/users/${id}`),
   deactivate: (id) => api.post(`/users/${id}/deactivate`),
+  activate: (id) => api.post(`/users/${id}/activate`),
 };

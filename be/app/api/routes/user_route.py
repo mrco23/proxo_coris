@@ -43,3 +43,7 @@ def delete_user(user_id):
 @user_bp.route('/<user_id>/deactivate', methods=['POST'])
 def deactivate_user(user_id):
     return user_controller.deactivate_user(user_id)
+
+@user_bp.route('/<user_id>/activate', methods=['POST'])
+def activate_user(user_id):
+    return user_controller.activate_user(user_id)

@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { LuUser, LuSettings, LuLogOut } from "react-icons/lu";
 
 function HeaderAuth({ isAuthenticated, user, onLogout }) {
   const [avatarOpen, setAvatarOpen] = useState(false);
   const avatarRef = useRef(null);
+  const navigate = useNavigate();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -20,6 +21,7 @@ function HeaderAuth({ isAuthenticated, user, onLogout }) {
   const handleLogout = async () => {
     setAvatarOpen(false);
     await onLogout();
+    navigate("/login");
   };
 
   if (!isAuthenticated) {

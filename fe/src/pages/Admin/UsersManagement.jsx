@@ -56,6 +56,16 @@ function AdminDashboard() {
     }
   };
 
+  const handleActivate = async (userId) => {
+    if (!confirm("Aktifkan user ini?")) return;
+    try {
+      await userAPI.activate(userId);
+      fetchUsers();
+    } catch (err) {
+      alert(err.response?.data?.message || "Gagal mengaktifkan user");
+    }
+  };
+
   const handleDelete = async (userId) => {
     if (!confirm("Hapus user ini? Tindakan ini tidak bisa dibatalkan.")) return;
     try {
@@ -236,12 +246,19 @@ function AdminDashboard() {
                       </td>
                       <td className="px-4 py-3 text-right">
                         <div className="flex items-center justify-end gap-2">
-                          {user.is_active && (
+                          {user.is_active ? (
                             <button
                               onClick={() => handleDeactivate(user.id)}
                               className="text-xs text-yellow-600 transition hover:text-yellow-800"
                             >
                               Nonaktifkan
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => handleActivate(user.id)}
+                              className="text-xs text-green-600 transition hover:text-green-800"
+                            >
+                              Aktifkan
                             </button>
                           )}
                           <button

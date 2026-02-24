@@ -139,3 +139,12 @@ def deactivate_user(user_id):
     
     user = UserService.deactivate(user_id)
     return success_response(data=user.to_dict(), message="Pengguna berhasil dinonaktifkan")
+
+@admin_required
+def activate_user(user_id):
+    if user_id == request.current_user.id:
+        return error_response(message="Tidak bisa mengaktifkan akun sendiri", status_code=400)
+    
+    user = UserService.activate(user_id)
+    return success_response(data=user.to_dict(), message="Pengguna berhasil diaktifkan")
+
