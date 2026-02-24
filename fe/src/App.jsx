@@ -22,6 +22,7 @@ import UserProfile from "./pages/user/UserProfilePage";
 import AdminDashboard from "./pages/admin/AdminDashboardPage";
 import AdminProfile from "./pages/admin/AdminProfilePage";
 import UsersManagement from "./pages/admin/AdminUserManagementPage";
+import KolaboratorPage from "./pages/public/KolaboratorPage";
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
       {/* Public + User */}
       <Route element={<PublicLayout />}>
         <Route path="/" element={<LandingPage />} />
-
+        <Route path="/fitur/kolaborator" element={<KolaboratorPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/profile" element={<UserProfile />} />
         </Route>
