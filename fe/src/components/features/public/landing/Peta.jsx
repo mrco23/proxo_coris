@@ -30,7 +30,7 @@ const Peta = () => {
         {/* Peta */}
         <div className="w-full max-w-[1400px] overflow-hidden rounded-2xl shadow-[0px_4px_25px_5px_rgba(0,0,0,0.1)]">
           <img
-            src="images/maps-sulut.png"
+            src="/images/maps-sulut.png"
             alt="Maps Sulut"
             className="w-full"
           />

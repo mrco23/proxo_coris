@@ -9,7 +9,7 @@ function LandingPage() {
     <div className="relative w-full">
       {/* image vector background */}
       <img
-        src="images/landing-bg.png"
+        src="/images/landing-bg.png"
         alt="landing"
         className="absolute top-0 left-1/2 z-0 w-full -translate-x-1/2 object-cover"
       />

@@ -26,7 +26,7 @@ function Sidebar({ user, sidebarOpen, onClose, onLogout, onNavClick }) {
           >
             <picture>
               <img
-                src="images/logo-fill.png"
+                src="/images/logo-fill.png"
                 alt="logo"
                 className="h-[45px] w-[45px]"
               />

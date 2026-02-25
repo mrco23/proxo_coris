@@ -7,7 +7,7 @@ const Hero = () => {
       <div className="relative z-10 mx-auto flex w-full max-w-6xl">
         <div className="absolute inset-0 z-0 hidden items-center justify-center">
           <img
-            src="images/landing-hero.png"
+            src="/images/landing-hero.png"
             alt="landing-hero"
             className="w-2xl blur-lg"
           />
@@ -31,7 +31,7 @@ const Hero = () => {
             </div>
             <div className="mt-5">
               <img
-                src="icons/swipe-down.svg"
+                src="/icons/swipe-down.svg"
                 alt="swipe-down"
                 className="w-12 animate-bounce"
               />
@@ -40,7 +40,7 @@ const Hero = () => {
           <div className="hidden w-4/5 lg:block">
             <div className="mb-10">
               <img
-                src="images/landing-hero.png"
+                src="/images/landing-hero.png"
                 alt="landing-hero"
                 className="w-full"
               />

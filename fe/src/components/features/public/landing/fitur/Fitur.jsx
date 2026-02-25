@@ -9,28 +9,28 @@ const Fitur = () => {
       title: "Kolaborator",
       description:
         "Bergabunglah bersama komunitas, organisasi, dan instansi yang sudah bergerak menjaga lingkungan.",
-      icon: "icons/handshake.svg",
+      icon: "/icons/handshake.svg",
       link: "/fitur/kolaborator",
     },
     {
       title: "Aset",
       description:
         "Temukan bank sampah, TPS, dan pengepul terdekat di sekitarmu",
-      icon: "icons/location.png",
+      icon: "/icons/location.png",
       link: "/fitur/aset",
     },
     {
       title: "Laporan Sampah Ilegal",
       description:
         "Pantau dan laporkan titik pembuangan sampah ilegal di sekitarmu.",
-      icon: "icons/infographic.png",
+      icon: "/icons/infographic.png",
       link: "/fitur/laporan-sampah",
     },
     {
       title: "Barang Daur Ulang",
       description:
         "Punya barang bekas yang bisa didaur ulang? Tandai lokasimu dan biarkan orang lain mengambilnya",
-      icon: "icons/recycling-point.png",
+      icon: "/icons/recycling-point.png",
       link: "/fitur/barang-bekas",
     },
   ];

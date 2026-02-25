@@ -19,7 +19,7 @@ function Footer() {
             <div className="flex flex-col gap-5 lg:w-[40%]">
               <div className="flex items-center gap-2 border-y border-white/10 py-2">
                 <img
-                  src="images/logo-fill.png"
+                  src="/images/logo-fill.png"
                   alt="logo"
                   className="h-[50px] w-[50px]"
                 />
