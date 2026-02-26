@@ -1,9 +1,6 @@
 import toast from "react-hot-toast";
 
-/**
- * Helper utility untuk menampilkan toast notification.
- * Cara pakai:
- *
+/* ───────────────────────────────────────────────
  *   import showToast from "../utils/showToast";
  *
  *   showToast.success("Berhasil disimpan!");
@@ -14,8 +11,8 @@ import toast from "react-hot-toast";
  *     success: "Berhasil!",
  *     error: "Gagal memuat data",
  *   });
- */
-const showToast = {
+ * ─────────────────────────────────────────────── */
+const toaster = {
   success: (message, options = {}) =>
     toast.success(message, { duration: 3000, ...options }),
 
@@ -32,4 +29,4 @@ const showToast = {
     toast.promise(promise, messages, options),
 };
 
-export default showToast;
+export default toaster;
