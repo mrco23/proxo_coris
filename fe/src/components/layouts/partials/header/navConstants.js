@@ -1,5 +1,6 @@
 export const fiturItems = [
-  { label: "Kolaborator", path: "/fitur/kolaborator" },
-  { label: "Aset", path: "/fitur/aset" },
-  { label: "Barang Bekas", path: "/fitur/barang-bekas" },
+  { label: "Kolaborator", path: "/kolaborator" },
+  { label: "Aset", path: "/aset" },
+  { label: "Barang Bekas", path: "/barang-bekas" },
+  { label: "Laporan", path: "/laporan" },
 ];

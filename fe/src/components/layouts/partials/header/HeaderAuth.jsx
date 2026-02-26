@@ -71,24 +71,25 @@ function HeaderAuth({ isAuthenticated, user, onLogout }) {
             </div>
 
             {/* Menu items */}
-            {user?.role === "admin" && (
+            {user?.role === "admin" ? (
               <Link
                 to="/admin"
                 onClick={() => setAvatarOpen(false)}
                 className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 transition hover:bg-gray-50 hover:text-emerald-600"
               >
                 <LuSettings className="h-4 w-4" />
-                Admin Panel
+                Panel Admin
+              </Link>
+            ) : (
+              <Link
+                to={`/${user?.username}`}
+                onClick={() => setAvatarOpen(false)}
+                className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 transition hover:bg-gray-50 hover:text-emerald-600"
+              >
+                <LuUser className="h-4 w-4" />
+                Dashboard
               </Link>
             )}
-            <Link
-              to="/profile"
-              onClick={() => setAvatarOpen(false)}
-              className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 transition hover:bg-gray-50 hover:text-emerald-600"
-            >
-              <LuUser className="h-4 w-4" />
-              Profil
-            </Link>
 
             {/* Logout */}
             <div className="mt-1 border-t border-gray-100 pt-1">

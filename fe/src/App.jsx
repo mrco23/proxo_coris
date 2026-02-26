@@ -3,26 +3,50 @@ import {
   ProtectedRoute,
   AdminRoute,
   GuestRoute,
+  UserRoute,
 } from "./components/common/ProtectedRoute";
 
 /* layouts */
 import PublicLayout from "./components/layouts/PublicLayout";
 import AdminLayout from "./components/layouts/AdminLayout";
 import AuthLayout from "./components/layouts/AuthLayout";
+import UserLayout from "./components/layouts/UserLayout";
 
-/* pages */
-import LandingPage from "./pages/public/LandingPage";
+/* auth pages */
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import VerifyEmailPage from "./pages/auth/VerifyEmailPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import UserProfile from "./pages/user/UserProfilePage";
-import AdminDashboard from "./pages/admin/AdminDashboardPage";
-import AdminProfile from "./pages/admin/AdminProfilePage";
-import UsersManagement from "./pages/admin/AdminUserManagementPage";
+
+/* public pages */
+import LandingPage from "./pages/public/LandingPage";
+import PetaPage from "./pages/public/PetaPage";
 import KolaboratorPage from "./pages/public/KolaboratorPage";
+import AsetPage from "./pages/public/AsetPage";
+import BarangBekasPage from "./pages/public/BarangBekasPage";
+import LaporanPage from "./pages/public/LaporanPage";
+import ArtikelPage from "./pages/public/ArtikelPage";
+
+/* user pages */
+import UserDashboardPage from "./pages/user/UserDashboardPage";
+import UserKolaboratorPage from "./pages/user/UserKolaboratorPage";
+import UserAsetPage from "./pages/user/UserAsetPage";
+import UserBarangBekasPage from "./pages/user/UserBarangBekasPage";
+import UserLaporanPage from "./pages/user/UserLaporanPage";
+import UserArtikelPage from "./pages/user/UserArtikelPage";
+import UserProfilePage from "./pages/user/UserProfilePage";
+
+/* admin pages */
+import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
+import AdminKolaboratorPage from "./pages/admin/AdminKolaboratorPage";
+import AdminAsetPage from "./pages/admin/AdminAsetPage";
+import AdminBarangBekasPage from "./pages/admin/AdminBarangBekasPage";
+import AdminLaporanPage from "./pages/admin/AdminLaporanPage";
+import AdminArtikelPage from "./pages/admin/AdminArtikelPage";
+import AdminUsersManagementPage from "./pages/admin/AdminUserManagementPage";
+import AdminProfilePage from "./pages/admin/AdminProfilePage";
 
 function App() {
   return (
@@ -39,20 +63,44 @@ function App() {
       <Route path="/verify-email" element={<VerifyEmailPage />} />
 
       {/* Public + User */}
-      <Route element={<PublicLayout />}>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/fitur/kolaborator" element={<KolaboratorPage />} />
+      <Route path="/" element={<PublicLayout />}>
+        <Route index element={<LandingPage />} />
+        <Route path="peta" element={<PetaPage />} />
+        <Route path="kolaborator" element={<KolaboratorPage />} />
+        <Route path="aset" element={<AsetPage />} />
+        <Route path="barang-bekas" element={<BarangBekasPage />} />
+        <Route path="laporan" element={<LaporanPage />} />
+        <Route path="artikel" element={<ArtikelPage />} />
+
         <Route element={<ProtectedRoute />}>
-          <Route path="/profile" element={<UserProfile />} />
+          {/* Untuk halaman publik yang perlu login user */}
+        </Route>
+      </Route>
+
+      {/* User (UserSidebar and UserHeader) diakses menggunakan slug user */}
+      <Route element={<UserRoute />}>
+        <Route path="/:user" element={<UserLayout />}>
+          <Route index element={<UserDashboardPage />} />
+          <Route path="kolaborator" element={<UserKolaboratorPage />} />
+          <Route path="aset" element={<UserAsetPage />} />
+          <Route path="barang-bekas" element={<UserBarangBekasPage />} />
+          <Route path="laporan" element={<UserLaporanPage />} />
+          <Route path="artikel" element={<UserArtikelPage />} />
+          <Route path="profile" element={<UserProfilePage />} />
         </Route>
       </Route>
 
       {/* Admin (sidebar layout) */}
       <Route element={<AdminRoute />}>
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboard />} />
-          <Route path="profile" element={<AdminProfile />} />
-          <Route path="users" element={<UsersManagement />} />
+          <Route index element={<AdminDashboardPage />} />
+          <Route path="kolaborator" element={<AdminKolaboratorPage />} />
+          <Route path="aset" element={<AdminAsetPage />} />
+          <Route path="barang-bekas" element={<AdminBarangBekasPage />} />
+          <Route path="laporan" element={<AdminLaporanPage />} />
+          <Route path="artikel" element={<AdminArtikelPage />} />
+          <Route path="profile" element={<AdminProfilePage />} />
+          <Route path="users" element={<AdminUsersManagementPage />} />
         </Route>
       </Route>
 

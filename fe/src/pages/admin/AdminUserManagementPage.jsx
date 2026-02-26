@@ -160,7 +160,10 @@ function AdminDashboard() {
                 <thead className="border-b border-gray-100 bg-gray-50">
                   <tr>
                     <th className="px-4 py-3 text-left font-medium text-gray-600">
-                      User
+                      Username
+                    </th>
+                    <th className="px-4 py-3 text-left font-medium text-gray-600">
+                      Nama Lengkap
                     </th>
                     <th className="px-4 py-3 text-left font-medium text-gray-600">
                       Role
@@ -193,12 +196,12 @@ function AdminDashboard() {
                             />
                           ) : (
                             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-xs font-bold text-(--primary)">
-                              {user.full_name?.charAt(0).toUpperCase() || "?"}
+                              {user.username?.charAt(0).toUpperCase() || "?"}
                             </div>
                           )}
                           <div>
                             <p className="font-medium text-gray-800">
-                              {user.full_name || "-"}
+                              {user.username || "-"}
                             </p>
                             <p className="text-xs text-gray-400">
                               {user.email}
@@ -206,6 +209,7 @@ function AdminDashboard() {
                           </div>
                         </div>
                       </td>
+                      <td className="px-4 py-3">{user.full_name || "-"}</td>
                       <td className="px-4 py-3">
                         <span
                           className={`rounded-full px-2 py-1 text-xs font-medium ${
@@ -233,9 +237,7 @@ function AdminDashboard() {
                         )}
                       </td>
                       <td className="px-4 py-3 text-gray-500 capitalize">
-                        {user.auth_provider === "google"
-                          ? "🔵 Google"
-                          : "✉️ Email"}
+                        {user.auth_provider === "google" ? "Google" : "Email"}
                       </td>
                       <td className="px-4 py-3 text-xs text-gray-400">
                         {new Date(user.created_at).toLocaleDateString("id-ID", {

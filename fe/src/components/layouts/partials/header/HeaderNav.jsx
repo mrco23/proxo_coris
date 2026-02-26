@@ -38,6 +38,9 @@ function HeaderNav() {
       <Link to="/peta" className={navLinkClass("/peta")}>
         Peta
       </Link>
+      <Link to="/artikel" className={navLinkClass("/artikel")}>
+        Artikel
+      </Link>
 
       {/* Fitur dropdown */}
       <div className="relative" ref={fiturRef}>

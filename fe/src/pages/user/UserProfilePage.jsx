@@ -125,196 +125,192 @@ function UserProfile() {
   };
 
   return (
-    <div className="w-full px-4 py-8 pt-24 md:px-6">
-      <div className="mx-auto w-full max-w-6xl space-y-8">
-        <h1 className="text-2xl font-bold text-gray-800">Profil Saya</h1>
+    <div className="space-y-4 md:space-y-6">
+      <h1 className="text-2xl font-bold text-gray-800">Profil Saya</h1>
 
-        {/* Avatar Section */}
-        <div className="flex items-center gap-4">
-          <div className="group relative">
-            {user?.avatar_url ? (
-              <img
-                src={user.avatar_url}
-                alt="avatar"
-                referrerPolicy="no-referrer"
-                className="h-20 w-20 rounded-full object-cover"
-              />
-            ) : (
-              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-indigo-100 text-2xl font-bold text-(--primary)">
-                {user?.full_name?.charAt(0).toUpperCase() || "?"}
-              </div>
-            )}
-            <button
-              type="button"
-              onClick={() => fileInputRef.current?.click()}
-              disabled={avatarLoading}
-              className="absolute inset-0 flex cursor-pointer items-center justify-center rounded-full bg-black/40 opacity-0 transition group-hover:opacity-100"
-            >
-              <span className="text-xs font-medium text-white">
-                {avatarLoading ? "..." : "Ubah"}
-              </span>
-            </button>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/jpeg,image/png,image/jpg"
-              onChange={handleAvatarChange}
-              className="hidden"
+      {/* Avatar Section */}
+      <div className="flex items-center gap-4">
+        <div className="group relative">
+          {user?.avatar_url ? (
+            <img
+              src={user.avatar_url}
+              alt="avatar"
+              referrerPolicy="no-referrer"
+              className="h-20 w-20 rounded-full object-cover"
             />
-          </div>
-          <div>
-            <p className="font-semibold">{user?.full_name}</p>
-            <p className="text-sm text-gray-500">{user?.email}</p>
-            {avatarMsg && (
-              <p
-                className={`mt-1 text-xs ${avatarMsg.type === "success" ? "text-green-600" : "text-red-600"}`}
-              >
-                {avatarMsg.text}
-              </p>
-            )}
-          </div>
+          ) : (
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-indigo-100 text-2xl font-bold text-(--primary)">
+              {user?.full_name?.charAt(0).toUpperCase() || "?"}
+            </div>
+          )}
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={avatarLoading}
+            className="absolute inset-0 flex cursor-pointer items-center justify-center rounded-full bg-black/40 opacity-0 transition group-hover:opacity-100"
+          >
+            <span className="text-xs font-medium text-white">
+              {avatarLoading ? "..." : "Ubah"}
+            </span>
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/jpeg,image/png,image/jpg"
+            onChange={handleAvatarChange}
+            className="hidden"
+          />
+        </div>
+        <div>
+          <p className="font-semibold">{user?.full_name}</p>
+          <p className="text-sm text-gray-500">{user?.email}</p>
+          {avatarMsg && (
+            <p
+              className={`mt-1 text-xs ${avatarMsg.type === "success" ? "text-green-600" : "text-red-600"}`}
+            >
+              {avatarMsg.text}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <div className="flex w-full flex-col gap-4 md:flex-row">
+        {/* Profile Form */}
+        <div className="w-full space-y-4 md:max-w-[568px]">
+          <h2 className="text-lg font-semibold text-gray-800">
+            Informasi Profil
+          </h2>
+
+          {success && (
+            <div className="rounded-lg bg-green-50 p-3 text-sm text-green-700">
+              {success}
+            </div>
+          )}
+          {error && (
+            <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600">
+              {error}
+            </div>
+          )}
+
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-4 rounded-xl border border-gray-100 bg-white p-6 shadow-sm"
+          >
+            <div>
+              <label className="text-sm font-medium text-gray-700">
+                Nama Lengkap
+              </label>
+              <input
+                type="text"
+                name="full_name"
+                value={form.full_name}
+                onChange={handleChange}
+                className="mt-1 w-full rounded-lg border px-4 py-2.5 focus:ring-1 focus:ring-(--primary) focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium text-gray-700">
+                Username
+              </label>
+              <input
+                type="text"
+                name="username"
+                value={form.username}
+                onChange={handleChange}
+                className="mt-1 w-full rounded-lg border px-4 py-2.5 focus:ring-1 focus:ring-(--primary) focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium text-gray-700">Email</label>
+              <input
+                type="email"
+                value={user?.email}
+                disabled
+                className="mt-1 w-full cursor-not-allowed rounded-lg border bg-gray-50 px-4 py-2.5 text-gray-400"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full cursor-pointer rounded-lg bg-(--primary) py-2.5 font-medium text-white transition hover:bg-(--primary-dark) disabled:opacity-50"
+            >
+              {loading ? "Menyimpan..." : "Simpan Perubahan"}
+            </button>
+          </form>
         </div>
 
-        <div className="flex w-full flex-col gap-4 md:flex-row">
-          {/* Profile Form */}
+        {/* Change Password Section (only for non-Google accounts) */}
+        {user?.auth_provider !== "google" && (
           <div className="w-full space-y-4 md:max-w-[568px]">
             <h2 className="text-lg font-semibold text-gray-800">
-              Informasi Profil
+              Ubah Password
             </h2>
 
-            {success && (
+            {pwSuccess && (
               <div className="rounded-lg bg-green-50 p-3 text-sm text-green-700">
-                {success}
+                {pwSuccess}
               </div>
             )}
-            {error && (
+            {pwError && (
               <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600">
-                {error}
+                {pwError}
               </div>
             )}
 
             <form
-              onSubmit={handleSubmit}
+              onSubmit={handlePwSubmit}
               className="space-y-4 rounded-xl border border-gray-100 bg-white p-6 shadow-sm"
             >
               <div>
                 <label className="text-sm font-medium text-gray-700">
-                  Nama Lengkap
+                  Password Saat Ini
                 </label>
                 <input
-                  type="text"
-                  name="full_name"
-                  value={form.full_name}
-                  onChange={handleChange}
+                  type="password"
+                  name="current_password"
+                  value={pwForm.current_password}
+                  onChange={handlePwChange}
                   className="mt-1 w-full rounded-lg border px-4 py-2.5 focus:ring-1 focus:ring-(--primary) focus:outline-none"
+                  required
                 />
               </div>
               <div>
                 <label className="text-sm font-medium text-gray-700">
-                  Username
+                  Password Baru
                 </label>
                 <input
-                  type="text"
-                  name="username"
-                  value={form.username}
-                  onChange={handleChange}
+                  type="password"
+                  name="new_password"
+                  value={pwForm.new_password}
+                  onChange={handlePwChange}
                   className="mt-1 w-full rounded-lg border px-4 py-2.5 focus:ring-1 focus:ring-(--primary) focus:outline-none"
+                  required
                 />
               </div>
               <div>
                 <label className="text-sm font-medium text-gray-700">
-                  Email
+                  Konfirmasi Password Baru
                 </label>
                 <input
-                  type="email"
-                  value={user?.email}
-                  disabled
-                  className="mt-1 w-full cursor-not-allowed rounded-lg border bg-gray-50 px-4 py-2.5 text-gray-400"
+                  type="password"
+                  name="confirm_password"
+                  value={pwForm.confirm_password}
+                  onChange={handlePwChange}
+                  className="mt-1 w-full rounded-lg border px-4 py-2.5 focus:ring-1 focus:ring-(--primary) focus:outline-none"
+                  required
                 />
               </div>
               <button
                 type="submit"
-                disabled={loading}
-                className="w-full cursor-pointer rounded-lg bg-(--primary) py-2.5 font-medium text-white transition hover:bg-(--primary-dark) disabled:opacity-50"
+                disabled={pwLoading}
+                className="w-full cursor-pointer rounded-lg bg-gray-800 py-2.5 font-medium text-white transition hover:bg-gray-900 disabled:opacity-50"
               >
-                {loading ? "Menyimpan..." : "Simpan Perubahan"}
+                {pwLoading ? "Menyimpan..." : "Ubah Password"}
               </button>
             </form>
           </div>
-
-          {/* Change Password Section (only for non-Google accounts) */}
-          {user?.auth_provider !== "google" && (
-            <div className="w-full space-y-4 md:max-w-[568px]">
-              <h2 className="text-lg font-semibold text-gray-800">
-                Ubah Password
-              </h2>
-
-              {pwSuccess && (
-                <div className="rounded-lg bg-green-50 p-3 text-sm text-green-700">
-                  {pwSuccess}
-                </div>
-              )}
-              {pwError && (
-                <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600">
-                  {pwError}
-                </div>
-              )}
-
-              <form
-                onSubmit={handlePwSubmit}
-                className="space-y-4 rounded-xl border border-gray-100 bg-white p-6 shadow-sm"
-              >
-                <div>
-                  <label className="text-sm font-medium text-gray-700">
-                    Password Saat Ini
-                  </label>
-                  <input
-                    type="password"
-                    name="current_password"
-                    value={pwForm.current_password}
-                    onChange={handlePwChange}
-                    className="mt-1 w-full rounded-lg border px-4 py-2.5 focus:ring-1 focus:ring-(--primary) focus:outline-none"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-700">
-                    Password Baru
-                  </label>
-                  <input
-                    type="password"
-                    name="new_password"
-                    value={pwForm.new_password}
-                    onChange={handlePwChange}
-                    className="mt-1 w-full rounded-lg border px-4 py-2.5 focus:ring-1 focus:ring-(--primary) focus:outline-none"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-700">
-                    Konfirmasi Password Baru
-                  </label>
-                  <input
-                    type="password"
-                    name="confirm_password"
-                    value={pwForm.confirm_password}
-                    onChange={handlePwChange}
-                    className="mt-1 w-full rounded-lg border px-4 py-2.5 focus:ring-1 focus:ring-(--primary) focus:outline-none"
-                    required
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={pwLoading}
-                  className="w-full cursor-pointer rounded-lg bg-gray-800 py-2.5 font-medium text-white transition hover:bg-gray-900 disabled:opacity-50"
-                >
-                  {pwLoading ? "Menyimpan..." : "Ubah Password"}
-                </button>
-              </form>
-            </div>
-          )}
-        </div>
-      </div>{" "}
+        )}
+      </div>
     </div>
   );
 }

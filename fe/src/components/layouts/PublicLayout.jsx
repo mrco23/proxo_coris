@@ -1,10 +1,13 @@
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { useAuth } from "../../contexts/AuthContext";
 import Header from "./partials/header/Header";
 import Footer from "./partials/Footer";
 
 function PublicLayout() {
   const { isAuthenticated, user, logout } = useAuth();
+  const location = useLocation();
+
+  const pagesWithoutFooter = ["/peta", "/profile"];
 
   return (
     <div className="flex min-h-screen flex-col overflow-hidden bg-white transition-colors duration-200">
@@ -15,7 +18,7 @@ function PublicLayout() {
         <Outlet />
       </main>
 
-      <Footer />
+      {pagesWithoutFooter.includes(location.pathname) ? null : <Footer />}
     </div>
   );
 }

@@ -1,8 +1,23 @@
 import { Link, useLocation } from "react-router";
-import { LuLayoutDashboard, LuUsers, LuUserCog, LuX } from "react-icons/lu";
+import {
+  LuLayoutDashboard,
+  LuUsers,
+  LuUserCog,
+  LuFileUser,
+  LuX,
+  LuNewspaper,
+  LuBuilding2,
+  LuArchive,
+  LuFileText,
+} from "react-icons/lu";
 
 const menuItems = [
   { label: "Dashboard", path: "/admin", icon: LuLayoutDashboard },
+  { label: "Kolaborator", path: "/admin/kolaborator", icon: LuFileUser },
+  { label: "Aset", path: "/admin/aset", icon: LuBuilding2 },
+  { label: "Barang Bekas", path: "/admin/barang-bekas", icon: LuArchive },
+  { label: "Laporan", path: "/admin/laporan", icon: LuFileText },
+  { label: "Artikel", path: "/admin/artikel", icon: LuNewspaper },
   { label: "Pengguna", path: "/admin/users", icon: LuUsers },
   { label: "Profil", path: "/admin/profile", icon: LuUserCog },
 ];
@@ -12,7 +27,7 @@ function Sidebar({ user, sidebarOpen, onClose, onLogout, onNavClick }) {
 
   return (
     <aside
-      className={`fixed inset-y-0 left-0 z-50 flex w-64 shrink-0 transform flex-col bg-gray-900 text-white transition-transform duration-200 ease-in-out lg:relative lg:translate-x-0 ${
+      className={`fixed inset-y-0 left-0 z-50 flex w-64 shrink-0 transform flex-col bg-gray-900 text-white transition-transform duration-200 ease-in-out lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
@@ -83,12 +98,12 @@ function Sidebar({ user, sidebarOpen, onClose, onLogout, onNavClick }) {
             />
           ) : (
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-(--primary) text-xs font-bold">
-              {user?.full_name?.charAt(0).toUpperCase() || "?"}
+              {user?.username?.charAt(0).toUpperCase() || "?"}
             </div>
           )}
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-medium">
-              {user?.full_name || user?.username}
+              {user?.username || user?.full_name}
             </p>
             <p className="truncate text-xs text-gray-400">{user?.email}</p>
           </div>

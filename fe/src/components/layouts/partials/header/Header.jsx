@@ -20,7 +20,7 @@ function Header({ isAuthenticated, user, onLogout }) {
     <nav
       className={`fixed top-0 right-0 left-0 z-50 flex h-24 w-full justify-center px-4 py-2 md:px-6 ${menuOpen || !isLandingPage ? "bg-white shadow-md" : scrolled ? "bg-transparent shadow-md backdrop-blur-sm" : "bg-transparent backdrop-blur-sm"}`}
     >
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
         <HeaderLogo />
         <HeaderNav />
         <HeaderAuth

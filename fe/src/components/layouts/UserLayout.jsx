@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Outlet, useNavigate } from "react-router";
 import { useAuth } from "../../contexts/AuthContext";
 import { LuMenu } from "react-icons/lu";
-import Sidebar from "./partials/sidebar/Sidebar";
+import UserSidebar from "./partials/sidebar/UserSidebar";
 
-function AdminLayout() {
+function UserLayout() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -28,7 +28,7 @@ function AdminLayout() {
         />
       )}
 
-      <Sidebar
+      <UserSidebar
         user={user}
         sidebarOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
@@ -48,7 +48,7 @@ function AdminLayout() {
             <LuMenu className="h-6 w-6" />
           </button>
           <span className="text-md font-semibold text-gray-800">
-            Panel Admin
+            {user?.username}
           </span>
         </div>
 
@@ -60,4 +60,4 @@ function AdminLayout() {
   );
 }
 
-export default AdminLayout;
+export default UserLayout;

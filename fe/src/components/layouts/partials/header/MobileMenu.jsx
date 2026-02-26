@@ -54,6 +54,13 @@ function MobileMenu({
           >
             Peta
           </Link>
+          <Link
+            to="/artikel"
+            onClick={() => setMenuOpen(false)}
+            className="block rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 hover:font-semibold hover:text-black"
+          >
+            Artikel
+          </Link>
 
           {/* Fitur accordion */}
           <div>
@@ -96,7 +103,7 @@ function MobileMenu({
                     {user?.email}
                   </p>
                 </div>
-                {user?.role === "admin" && (
+                {user?.role === "admin" ? (
                   <Link
                     to="/admin"
                     onClick={() => setMenuOpen(false)}
@@ -104,14 +111,15 @@ function MobileMenu({
                   >
                     Admin Panel
                   </Link>
+                ) : (
+                  <Link
+                    to={`/:${user?.username}`}
+                    onClick={() => setMenuOpen(false)}
+                    className="block rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 hover:text-emerald-600"
+                  >
+                    Dashboard
+                  </Link>
                 )}
-                <Link
-                  to="/profile"
-                  onClick={() => setMenuOpen(false)}
-                  className="block rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 hover:text-emerald-600"
-                >
-                  Profil
-                </Link>
                 <button
                   onClick={handleLogout}
                   className="block w-full cursor-pointer rounded-lg px-3 py-2.5 text-left text-sm font-medium text-red-500 transition hover:bg-red-50 hover:text-red-600"
